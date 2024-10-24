@@ -8,17 +8,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import net.rickdev.phonebook.clases.SQLiteConnection;
-
-public class MainActivity extends AppCompatActivity {
-    SQLiteConnection objConnection;
-    final String DATABASE_NAME = "contactsBook";
+public class AddContact extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        objConnection = new SQLiteConnection(MainActivity.this, DATABASE_NAME, null, 1);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_add_contact);
     }
 }
