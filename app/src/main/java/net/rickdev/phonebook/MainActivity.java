@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> myList = new ArrayList<>();
         SQLiteDatabase base = objConnection.getReadableDatabase();
         String search = edtSearch.getText().toString();
-        String query = "SELECT id_contact, name, phoneNumber FROM contacts WHERE name LIKE '%"+search+"%'ORDER BY name ASC";
+        String query = "SELECT id_contact, name, phoneNumber FROM contacts WHERE name LIKE '%"+search+"%' OR phoneNumber LIKE '%"+search+"%' ORDER BY name ASC";
         Cursor eachRegistry = base.rawQuery(query, null);
         searchID.clear();
         if (eachRegistry.moveToFirst()){
