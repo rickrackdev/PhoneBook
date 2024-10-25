@@ -60,7 +60,7 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="0000-0000"
-        android:inputType="text" />
+        android:inputType="number" />
 
     <Button
         android:id="@+id/btnSave"
