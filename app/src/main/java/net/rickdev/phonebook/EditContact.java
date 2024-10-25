@@ -1,9 +1,13 @@
 package net.rickdev.phonebook;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,14 +62,62 @@ public class EditContact extends AppCompatActivity {
     }
 
     private void editContact(){
-
+        try {
+            SQLiteDatabase myDataBase = objConnection.getWritableDatabase();
+            String update = "UPDATE contacts SET name='"+edtEditName.getText()+"', phoneNumber='"+edtEditNumber.getText()+"'" +
+                    " WHERE id_contact='"+idContact+"'";
+            myDataBase.execSQL(update);
+            myDataBase.close();
+            Toast.makeText(EditContact.this, "Contact updated successfully", Toast.LENGTH_LONG).show();
+            goBack();
+        } catch (Exception error){
+            Toast.makeText(EditContact.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void deleteContact(){
-
+        try {
+            SQLiteDatabase myDataBase = objConnection.getWritableDatabase();
+            String delete = "DELETE FROM contacts WHERE id_contact='"+idContact+"'";
+            myDataBase.execSQL(delete);
+            myDataBase.close();
+            Toast.makeText(EditContact.this, "Contact deleted successfully", Toast.LENGTH_LONG).show();
+            goBack();
+        } catch (Exception error){
+            Toast.makeText(EditContact.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void goBack(){
+        Intent goBack = new Intent(EditContact.this, MainActivity.class);
+        startActivity(goBack);
+        EditContact.this.finish();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Bundle extraValues = getIntent().getExtras();
+        if (extraValues == null){
+            Toast.makeText(EditContact.this, "Missing contact ID", Toast.LENGTH_SHORT).show();
+            idContact = 0;
+            goBack();
+        } else {
+            idContact = extraValues.getInt("id_contact");
+            seeContact();
+        }
+    }
+
+    private void seeContact(){
+        SQLiteDatabase base = objConnection.getReadableDatabase();
+        String query = "SELECT id_contact, name, phoneNumber FROM contacts WHERE id_contact = '"+idContact+"'";
+        Cursor eachRegistry = base.rawQuery(query, null);
+        if (eachRegistry.moveToFirst()){
+            do {
+            edtEditName.setText(eachRegistry.getString(1));
+            edtEditNumber.setText(eachRegistry.getString(2));
+            }while(eachRegistry.moveToNext());
+        }
     }
 }

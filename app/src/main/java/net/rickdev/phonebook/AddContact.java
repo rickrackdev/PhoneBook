@@ -58,7 +58,8 @@ public class AddContact extends AppCompatActivity {
             String insert = "INSERT INTO contacts (name, phoneNumber) VALUES ('"+edtName.getText()+"','"+edtNumber.getText()+"')";
             myDataBase.execSQL(insert);
             myDataBase.close();
-            Toast.makeText(AddContact.this, "Contact saved succesfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddContact.this, "Contact saved successfully", Toast.LENGTH_LONG).show();
+            goBack();
         } catch (Exception error) {
             Toast.makeText(AddContact.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
         }
