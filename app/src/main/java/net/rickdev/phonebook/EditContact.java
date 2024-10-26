@@ -1,5 +1,6 @@
 package net.rickdev.phonebook;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,10 +11,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import net.rickdev.phonebook.clases.SQLiteConnection;
 
@@ -49,7 +53,32 @@ public class EditContact extends AppCompatActivity {
         btnDeleteContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteContact();
+                //creating string that will contain the message to display
+                String title = "Delete Contact";
+                String message = "Are you sure you want to delete this contact?";
+                //setting the dialog builder to initiate the dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditContact.this);
+                //setting the title and message to display, this can also be done as an implicit string
+                builder.setTitle(title);
+                builder.setMessage(message);
+                //setting the positive and negative buttons
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //user confirms deletion of contact
+                        deleteContact();
+                    }
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //user cancels deletion of contact
+                                dialog.dismiss();
+                            }
+                        });
+                //creating and showing the dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
