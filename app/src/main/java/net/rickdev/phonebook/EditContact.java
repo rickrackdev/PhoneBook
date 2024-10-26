@@ -4,20 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import net.rickdev.phonebook.clases.SQLiteConnection;
 
@@ -27,7 +22,7 @@ public class EditContact extends AppCompatActivity {
     final String DATABASE_NAME = "contactsBook";
 
     EditText edtEditName, edtEditNumber;
-    Button btnEditContact, btnDeleteContact, btnBack2;
+    Button btnEditContact, btnDeleteContact, btnBack2, btnCall;
 
     int idContact;
 
@@ -42,6 +37,7 @@ public class EditContact extends AppCompatActivity {
         btnEditContact = findViewById(R.id.btnEditContact);
         btnDeleteContact = findViewById(R.id.btnDeleteContact);
         btnBack2 = findViewById(R.id.btnBack2);
+        btnCall = findViewById(R.id.btnCall);
 
         btnEditContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +75,16 @@ public class EditContact extends AppCompatActivity {
                 //creating and showing the dialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String contactNumber = edtEditNumber.getText().toString();
+            Intent callContact = new Intent(Intent.ACTION_DIAL);
+            callContact.setData(Uri.parse("tel:" + contactNumber));
+                startActivity(callContact);
             }
         });
 
