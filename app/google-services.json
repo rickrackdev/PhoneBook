@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "273809713765",
+    "project_id": "phonebook-ae814",
+    "storage_bucket": "phonebook-ae814.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273809713765:android:0e19810aa6b3c44f05348c",
+        "android_client_info": {
+          "package_name": "net.rickdev.phonebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDrnmEPuj9QKNRXPm8WYPx6XeZe6zXIR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
